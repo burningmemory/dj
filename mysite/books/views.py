@@ -21,7 +21,7 @@ def detail(request, book_id):
 
 class BookDetailView(DetailView):
     model = Book
-    template_name = "books/detail.html"
+    template_name = "books/book_detail.html"
 
 class BookCreateView(CreateView):
     model = Book

@@ -1,5 +1,6 @@
 from django.db import models
 from django.utils import timezone
+from django.urls import reverse
 
 
 class Author(models.Model):
@@ -16,3 +17,6 @@ class Book(models.Model):
 
     def __str__(self):
         return str(self.author) + " \"" + str(self.name) + "\""
+    
+    def get_absolute_url(self):
+        return reverse('book_detail', kwargs={'pk': self.pk})

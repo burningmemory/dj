@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from .models import Book
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, DeleteView
+from django.urls import reverse_lazy
 
 
 def index(request):
@@ -25,3 +26,7 @@ class BookDetailView(DetailView):
 class BookCreateView(CreateView):
     model = Book
     fields = ["name", "author"]
+
+class BookDeleteView(DeleteView):
+    model = Book
+    success_url = reverse_lazy('index')

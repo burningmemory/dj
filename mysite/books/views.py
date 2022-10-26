@@ -2,7 +2,7 @@ from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from .models import Book
 from django.views.generic import DetailView
-from django.views.generic.edit import CreateView, DeleteView
+from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
 
 
@@ -24,6 +24,10 @@ class BookDetailView(DetailView):
     template_name = "books/detail.html"
 
 class BookCreateView(CreateView):
+    model = Book
+    fields = ["name", "author"]
+
+class BookUpdateView(UpdateView):
     model = Book
     fields = ["name", "author"]
 

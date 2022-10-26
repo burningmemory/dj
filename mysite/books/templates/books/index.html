@@ -7,6 +7,16 @@
 {% else %}
     <p>No books are available.</p>
 {% endif %}
+{% if author_list %}
+    <ul>
+    {% for author in author_list %}
+        <li><a href="/books/a/{{ author.id }}/">{{ author.name}} </a></li>
+    {% endfor %}
+    </ul>
+{% else %}
+    <p>No authors are available.</p>
+{% endif %}
 <ul>
     <li><a href="/books/add/">add book</a></li>
+    <li><a href="/books/add_a/">add author</a></li>
 </ul>

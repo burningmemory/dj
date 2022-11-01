@@ -3,7 +3,10 @@
     <a href = "{% url 'logout'%}">log out</a>
 {% else %}
     <p>Current user: None </p>
-    <a href = "{% url 'login'%}">log in</a>
+<ul>
+    <li><a href = "{% url 'login'%}">log in</a></li>
+    <li><a href = "{% url 'users:signup'%}">register</a></li>
+</ul>
 {% endif %}
 {% if user.is_authenticated %}
     <h1>Books</h1>

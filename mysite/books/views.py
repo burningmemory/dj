@@ -4,6 +4,7 @@ from .models import Book, Author
 from django.views.generic import DetailView
 from django.views.generic.edit import CreateView, UpdateView, DeleteView
 from django.urls import reverse_lazy
+from django.contrib.auth.mixins import PermissionRequiredMixin
 
 
 def index(request):
@@ -29,13 +30,14 @@ class BookCreateView(CreateView):
     model = Book
     fields = ["name", "author"]
 
-class BookUpdateView(UpdateView):
+class BookUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'books.change_book'
     model = Book
     fields = ["name", "author"]
 
 class BookDeleteView(DeleteView):
     model = Book
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('books:index')
 
 
 class AuthorDetailView(DetailView):
@@ -46,10 +48,10 @@ class AuthorCreateView(CreateView):
     model = Author
     fields = ["name"]
 
-class AuthorUpdateView(UpdateView):
+class AuthorUpdateView(UpdateView,):
     model = Author
     fields = ["name"]
 
 class AuthorDeleteView(DeleteView):
     model = Author
-    success_url = reverse_lazy('index')
+    success_url = reverse_lazy('books:index')

@@ -1,3 +1,11 @@
+{% if user.is_authenticated %}
+    <p>Current user: {{user.username}}</p>
+    <a href = "{% url 'logout'%}"">log out</a>
+{% else %}
+    <p>Current user: None </p>
+    <a href = "{% url 'login'%}"">log in</a>
+{% endif %}
+
 <h1>Books</h1>
 {% if question_list %}
     <ul>

@@ -4,6 +4,10 @@
 <h1>{{book.name}}</h1>
 <h2>{{book.author}}</h2>
 <ul>
-    <li><a href="/books/{{ book.id }}/upd/">change</a></li>
-    <li><a href="/books/{{ book.id }}/del/">delete</a></li>
+    {% if perms.books.change_book %}
+        <li><a href="/books/{{ book.id }}/upd/">change</a></li>
+    {% endif %}
+    {% if perms.books.delete_book %}
+        <li><a href="/books/{{ book.id }}/del/">delete</a></li>
+    {% endif %}
 </ul>

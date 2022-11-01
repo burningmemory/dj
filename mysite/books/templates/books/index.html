@@ -1,32 +1,41 @@
 {% if user.is_authenticated %}
     <p>Current user: {{user.username}}</p>
-    <a href = "{% url 'logout'%}"">log out</a>
+    <a href = "{% url 'logout'%}">log out</a>
 {% else %}
     <p>Current user: None </p>
-    <a href = "{% url 'login'%}"">log in</a>
+    <a href = "{% url 'login'%}">log in</a>
 {% endif %}
+{% if user.is_authenticated %}
+    <h1>Books</h1>
+    {% if question_list %}
+        <ul>
+        {% for book in question_list %}
+            <li><a href="/books/{{ book.id }}/">{{ book.name }}</a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No books are available.</p>
+    {% endif %}
 
-<h1>Books</h1>
-{% if question_list %}
-    <ul>
-    {% for book in question_list %}
-        <li><a href="/books/{{ book.id }}/">{{ book.name }}</a></li>
-    {% endfor %}
-    </ul>
+    <h1>Authors</h1>
+    {% if author_list %}
+        <ul>
+        {% for author in author_list %}
+            <li><a href="/books/a/{{ author.id }}/">{{ author.name}} </a></li>
+        {% endfor %}
+        </ul>
+    {% else %}
+        <p>No authors are available.</p>
+    {% endif %}
 {% else %}
-    <p>No books are available.</p>
-{% endif %}
-<h1>Authors</h1>
-{% if author_list %}
-    <ul>
-    {% for author in author_list %}
-        <li><a href="/books/a/{{ author.id }}/">{{ author.name}} </a></li>
-    {% endfor %}
-    </ul>
-{% else %}
-    <p>No authors are available.</p>
+<h3>This is a "crossbooking" site which shows the books that are currently available.
+Please, log in to see the book list.</h3>
 {% endif %}
 <ul>
-    <li><a href="/books/add/">add book</a></li>
-    <li><a href="/books/add_a/">add author</a></li>
+    {% if perms.books.add_book%}
+        <li><a href="/books/add/">add book</a></li>
+    {% endif %}
+    {% if perms.books.add_author %}
+        <li><a href="/books/add_a/">add author</a></li>
+    {% endif %}
 </ul>

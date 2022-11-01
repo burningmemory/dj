@@ -26,16 +26,21 @@ class BookDetailView(DetailView):
     model = Book
     template_name = "books/book_detail.html"
 
-class BookCreateView(CreateView):
+
+class BookCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'books.add_book'
     model = Book
     fields = ["name", "author"]
+
 
 class BookUpdateView(PermissionRequiredMixin, UpdateView):
     permission_required = 'books.change_book'
     model = Book
     fields = ["name", "author"]
 
-class BookDeleteView(DeleteView):
+
+class BookDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'books.delete_book'
     model = Book
     success_url = reverse_lazy('books:index')
 
@@ -44,14 +49,20 @@ class AuthorDetailView(DetailView):
     model = Author
     template_name = "books/author_detail.html"
 
-class AuthorCreateView(CreateView):
+
+class AuthorCreateView(PermissionRequiredMixin, CreateView):
+    permission_required = 'books.add_author'
     model = Author
     fields = ["name"]
 
-class AuthorUpdateView(UpdateView,):
+
+class AuthorUpdateView(PermissionRequiredMixin, UpdateView):
+    permission_required = 'books.change_author'
     model = Author
     fields = ["name"]
 
-class AuthorDeleteView(DeleteView):
+
+class AuthorDeleteView(PermissionRequiredMixin, DeleteView):
+    permission_required = 'books.delete_author'
     model = Author
     success_url = reverse_lazy('books:index')
